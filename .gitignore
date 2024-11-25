@@ -1,6 +1,4 @@
-*.yml
 **/__pycache__
-/engines/*
 !/engines/README.md
 lichess_bot_auto_logs/*
 .vscode/*
@@ -9,3 +7,4 @@ lichess_bot_auto_logs/*
 *.log
 *.txt
 TEMP/*
+OPENAI_API_KEY

@@ -9,6 +9,7 @@ import random
 from lib.engine_wrapper import MinimalEngine
 from lib.types import MOVE, HOMEMADE_ARGS_TYPE
 import logging
+from engines.bot.main import get_move
 
 
 # Use this logger variable to print messages to the console or log files.
@@ -22,6 +23,13 @@ class ExampleEngine(MinimalEngine):
 
     pass
 
+class GPTEngine(ExampleEngine):
+    def search(self, board: chess.Board, *args: HOMEMADE_ARGS_TYPE) -> PlayResult:
+        """
+        Get the best move from the bot.
+        """
+        move = get_move(board)
+        return PlayResult(move, None)
 
 # Bot names and ideas from tom7's excellent eloWorld video
 
