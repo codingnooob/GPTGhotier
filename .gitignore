@@ -9,3 +9,4 @@ lichess_bot_auto_logs/*
 TEMP/*
 OPENAI_API_KEY
 *.env
+*.plandex
