@@ -8,7 +8,7 @@ engine:                            # Engine settings.
 # interpreter_options:
 #   - "-jar"
   working_dir: ""                  # Directory where the chess engine will read and write files. If blank or missing, the current directory is used.
-                                   # NOTE: If working_dir is set, the engine will look for files and directories relative to this directory, not where lichess-bot was launched. Absolute paths are unaffected.
+                                     # NOTE: If working_dir is set, the engine will look for files and directories relative to this directory, not where lichess-bot was launched. Absolute paths are unaffected.
   protocol: "homemade"                  # "uci", "xboard" or "homemade"
   ponder: true                     # Think on opponent's time.
 
@@ -182,9 +182,9 @@ greeting:
 
 # pgn_directory: "game_records"    # A directory where PGN-format records of the bot's games are kept
 # pgn_file_grouping: "game"        # How to group games into files. Options are "game", "opponent", and "all"
-                                   # "game" (default) - every game is written to a different file named "{White name} vs. {Black name} - {lichess game ID}.pgn"
-                                   # "opponent" - every game with a given opponent is written to a file named "{Bot name} games vs. {Opponent name}.pgn"
-                                   # "all" - every game is written to a single file named "{Bot name} games.pgn"
+                                     # "game" (default) - every game is written to a different file named "{White name} vs. {Black name} - {lichess game ID}.pgn"
+                                     # "opponent" - every game with a given opponent is written to a file named "{Bot name} games vs. {Opponent name}.pgn"
+                                     # "all" - every game is written to a single file named "{Bot name} games.pgn"
 
 matchmaking:
   allow_matchmaking: false         # Set it to 'true' to challenge other bots.
