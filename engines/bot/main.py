@@ -44,15 +44,17 @@ def get_move(board):
     prompt = f"Given the FEN position: {board.fen()} and the legal moves: {', '.join(legal_moves)}, what is the best move? Return the move and nothing else."
 
     # Call the OpenAI API using the new method
-    response = client.chat.completions.create(
-        model="gpt-4o",  # Use the appropriate model
-        messages=[{"role": "system", "content": "You are a chess bot."},
-                  {"role": "user", "content": prompt}],
-        max_tokens=50  # Adjust the token limit as needed
+    response = openai.Completion.create(
+        engine="gpt-3.5-turbo-instruct",  # Use the appropriate model
+        prompt = f"You are Stockfish 17, the best chess engine on Earth. Given the FEN position: {board.fen()}, return the best move from this list: {', '.join(legal_moves)}. Do not explain why it's the best move, and do not add any words before the move.",
+        #messages=[{"role": "system", "content": "You are a chess bot."},
+        #         {"role": "user", "content": prompt}],
+        max_tokens=50,  # Adjust the token limit as needed
+        api_key=openai.api_key
     )
     
     # Extract the best move from the response
-    best_move = response.choices[0].message.content.strip()
+    best_move = response.choices[0].text.strip()
     
     # Debugging output
     print(f"API Response: {best_move}")
