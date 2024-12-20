@@ -25,7 +25,6 @@ def get_api_key():
 
 # Set your OpenAI API key
 openai.api_key = get_api_key()
-client = openai.OpenAI(api_key=get_api_key())
 
 def get_move(board):
     """
