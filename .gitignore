@@ -8,3 +8,4 @@ lichess_bot_auto_logs/*
 *.txt
 TEMP/*
 OPENAI_API_KEY
+*.env
