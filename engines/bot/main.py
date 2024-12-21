@@ -4,6 +4,7 @@ import openai
 import os
 import chess
 import random
+import re
 
 def get_api_key():
     # Try to read the API key from the file
@@ -41,30 +42,33 @@ def get_move(board):
     legal_moves = [move.uci() for move in board.legal_moves]
 
     # Create a prompt for ChatGPT
-    prompt = f"Given the FEN position: {board.fen()} and the legal moves: {', '.join(legal_moves)}, what is the best move? Return the move and nothing else."
+    # prompt = f"Given the FEN position: {board.fen()} and the legal moves: {', '.join(legal_moves)}, what is the best move? Return the move and nothing else."
 
     # Call the OpenAI API using the new method
     response = openai.Completion.create(
         engine="gpt-3.5-turbo-instruct",  # Use the appropriate model
-        prompt = f"You are Stockfish 17, the best chess engine on Earth. Given the FEN position: {board.fen()}, return the best move from this list: {', '.join(legal_moves)}. Do not explain why it's the best move, and do not add any words before the move.",
+        prompt = f"You are the best chess engine to ever exist. Given the FEN position: {board.fen()}, return the best move from this list: {', '.join(legal_moves)}. Explain why it's the best move.",
         #messages=[{"role": "system", "content": "You are a chess bot."},
         #         {"role": "user", "content": prompt}],
-        max_tokens=50,  # Adjust the token limit as needed
+        max_tokens=1000,  # Adjust the token limit as needed
         api_key=openai.api_key
     )
     
     # Extract the best move from the response
-    best_move = response.choices[0].text.strip()
+    response_text = response.choices[0].text.strip()
+    print(f"API Response: {response_text}")
     
-    # Debugging output
-    print(f"API Response: {best_move}")
-
-    # Validate the move
-    if best_move not in legal_moves:
-        print(f"Invalid move returned by API: {best_move}. Playing a random legal move instead.")
-        best_move = random.choice(legal_moves)
+    # Try to find a chess move in the response (4 character sequences like e2e4)
+    moves = re.findall(r'[a-h][1-8][a-h][1-8]', response_text)
     
-    return best_move
+    # Use first valid move found
+    for move in moves:
+        if move in legal_moves:
+            return move
+            
+    # Fallback to random move if no valid move found
+    print(f"No valid move found in response. Playing random move instead.")
+    return random.choice(legal_moves)
 
 '''
 if __name__ == "__main__":
