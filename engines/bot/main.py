@@ -47,7 +47,7 @@ def get_move(board):
     # Call the OpenAI API using the new method
     response = openai.Completion.create(
         engine="gpt-3.5-turbo-instruct",  # Use the appropriate model
-        prompt = f"You are the best chess engine to ever exist. Given the FEN position: {board.fen()}, return the best move from this list: {', '.join(legal_moves)}. Explain why it's the best move.",
+        prompt = f"You are the most advanced chess engine, capable of analyzing positions with unparalleled depth and accuracy. Given the current chess position described by the FEN notation: {board.fen()}, please select the optimal move from the following legal moves: {', '.join(legal_moves)}. In your response, please provide the move in algebraic notation and include a detailed explanation of why this move is considered the best, taking into account both tactical possibilities and strategic considerations. Additionally, if possible, compare this move to the alternatives and explain why they are less favorable.",
         #messages=[{"role": "system", "content": "You are a chess bot."},
         #         {"role": "user", "content": prompt}],
         max_tokens=1000,  # Adjust the token limit as needed
