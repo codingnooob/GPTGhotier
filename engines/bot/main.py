@@ -47,7 +47,23 @@ def get_move(board):
     # Call the OpenAI API using the new method
     response = openai.Completion.create(
         engine="gpt-3.5-turbo-instruct",  # Use the appropriate model
-        prompt = f"You are the best chess engine to ever exist. Given the FEN position: {board.fen()}, return the best move from this list: {', '.join(legal_moves)}. Explain why it's the best move.",
+        prompt = f'''You are a highly sophisticated chess engine renowned for your deep tactical vision and strategic understanding.  Analyze the following chess position in detail, considering both immediate threats and long-term implications.
+        **Current Chess Position (FEN):** {board.fen()} 
+        **Legal Moves:** {', '.join(legal_moves)} 
+        **Task:**
+    1. **Identify and select the objectively best move from the provided list.** Base your selection on a thorough evaluation of the position, considering factors such as:
+        * **Material balance:**  Gains or losses of pieces.
+        * **King safety:**  Vulnerabilities of both kings.
+        * **Piece activity and mobility:**  How well-placed and active the pieces are.
+        * **Pawn structure:** Strengths and weaknesses of pawn formations.
+        * **Control of key squares and files:**  Influence over important areas of the board.
+        * **Potential threats and attacks:**  Immediate and future tactical possibilities.
+        * **Strategic advantages:**  Long-term plans and positional superiority.
+    2. **Provide a concise justification for your chosen move.**  Explain *why* it is the strongest option, highlighting the key factors that make it superior to the other legal moves.  Specifically mention:
+        * **The immediate benefits of your chosen move.**
+        * **How it improves your position and/or hinders your opponent's.**
+        * **Potential future plans or threats enabled by this move.**
+        * **Briefly explain why other strong-looking moves are less optimal in this specific situation.**''',
         #messages=[{"role": "system", "content": "You are a chess bot."},
         #         {"role": "user", "content": prompt}],
         max_tokens=1000,  # Adjust the token limit as needed
